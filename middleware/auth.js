@@ -7,7 +7,7 @@ module.exports = async function(ctx, next){
         let token = ctx.req.headers.token;
         let user= ctx.getSession();
         if(!token) {
-            throw commonError.tokenValidationFailure();
+            throw new commonError.tokenValidationFailure();
         }
         ctx.userId = user.userId;
     }
