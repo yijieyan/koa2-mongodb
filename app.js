@@ -3,16 +3,14 @@ const app = new Koa();
 const json = require('koa-json');
 const bodyparser = require('koa-bodyparser');
 const logger = require('koa-logger');
-
-const index = require('./routes/index');
-const users = require('./routes/users');
 const config = require('./config')[env];
 const db = require('./libs/db');
 const error = require('./middleware/error');
-const res = require('./middleware/res');
-const session = require('./middleware/session');
 const auth = require('./middleware/auth');
 
+
+const public1 = require('./routes/public');
+const users = require('./routes/users');
 
 process.env.dataDir = __dirname;
 
@@ -22,7 +20,6 @@ app.use(bodyparser({
 }));
 app.use(json());
 app.use(logger());
-app.use(res);
 app.use(error);
 app.use(require('koa-static')(__dirname + '/public'));
 
@@ -36,10 +33,9 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 });
 
-app.use(session);
 app.use(auth);
 // routes
-app.use(index.routes(), index.allowedMethods());
+app.use(public1.routes(), public1.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
 
 

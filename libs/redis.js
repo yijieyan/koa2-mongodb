@@ -2,6 +2,8 @@
 const [redis, path] = [require('redis'), require('path')];
 const [config] = [require('../config.js')[env]];
 const {timeout = 60 * 60 * 24 * 2, host, port} = config.redis;
+const bluebird = require('bluebird');
+bluebird.promisifyAll(redis.RedisClient.prototype);
 
 let redisClient;
 function connectionServer(){
@@ -16,18 +18,20 @@ async function has(key){
     if(!key) return ;
     if(!redisClient)
         connectionServer();
-    return await redisClient.exists.bind(redisClient,key)();
+    return await redisClient.existsAsync(key);
 }
 /**
  * 根据key从redis中获取信息
  */
 async function get(key){
+
     if(!key) return;
     if(!redisClient)
         connectionServer();
-    let str = await redisClient.get.bind(redisClient,key)();
-    return JSON.parse(str);
+    let str = await redisClient.getAsync(key);
+    return JSON.parse(str)
 }
+
 
 /**
  * 根据key从redis中删除信息
@@ -37,7 +41,7 @@ async function del(key){
     if(!key) return;
     if(!redisClient)
         connectionServer();
-    return await redisClient.del.bind(redisClient,key)();
+    return await redisClient.delAsync(key);
 }
 
 /**
@@ -49,8 +53,9 @@ async function set(key,seems,_timeout = timeout){
         connectionServer();
     if(seems instanceof Object)
         seems = JSON.stringify(seems);
-    let val = await redisClient.set.bind(redisClient,key,seems)();
-    await redisClient.expire.bind(redisClient,key,_timeout);//设置超时时间
+    let val = await redisClient.setAsync(key,seems);
+    await redisClient.expireAsync(key,_timeout);//设置超时时间
     return val;
 }
 module.exports = {has,get,del,set};
+

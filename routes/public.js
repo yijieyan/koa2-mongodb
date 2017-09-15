@@ -1,5 +1,4 @@
 const router = require('koa-router')();
-const parse = require('co-busboy');
 const File = require('../models/file');
 const multer = require('koa-multer');
 const mkdirp = require('mkdirp');
@@ -63,7 +62,7 @@ router.post('/signUp', async (ctx, next) => {
     }else {
         password = security.sign(password);
         let u = await User.create({username, phone, email, password});
-        ctx.success();
+        ctx.success('signUp successful!');
     }
 });
 
@@ -82,6 +81,7 @@ router.post('/signIn', async (ctx, next) => {
             throw new commonError.PasswordError();
         }else {
             let token = ctx.sign(u._id);
+            await ctx.setSession(u, token);
             ctx.setSession(u, token);
             ctx.success({token});
         }

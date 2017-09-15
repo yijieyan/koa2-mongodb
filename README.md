@@ -1,5 +1,42 @@
 # koa2 后端项目框架
 
+# nodejs koa2-mongodb framework
+
+## Installation
+```
+$ npm install  或者  cnpm install
+```
+## Features
+
+<ul>
+	<li>有完善的日志记录</li>
+	<li>封装好用户的登陆状态和session，只需要安装好redis就可以直接使用，注册，登陆，注销接口已经提供，可以根据具体的需求做相应的修改</li>
+	<li>提供了上传、下载和验证码图片等公用接口</li>
+	<li>开发完成可以通过webpack打包合并压缩代码然后上传服务器运行，提高服务器的效率</li>
+</ul>
+
+### 1. Install dependencies:
+
+```
+$ npm install 或者  cnpm install
+```
+### 2.Start the server:
+```
+$ npm run start
+```
+## Examples
+##### To view the examples, clone the Express repo and install the dependencies:
+
+```
+$ git clone https://github.com/yijieyan/koa2-mongodb.git
+$ cd koa2-mongodb
+$ npm install
+```
+
+
+
+
+
 > 需要注意的地方
 #### 1. 本程序对xss 的处理比较浅，如果有富文本编辑需要去修改xss 的处理，自行添加白名单，现在程序默认会转移所有标签，如果是标签属性和输入脚本需要去做适当的处理，可以去mdn参考x-xss-protiction
 
@@ -17,3 +54,7 @@
 ###### 5.1 建议选用https ，如果不用htts 建议密码加一次hash传输
 
 > 启动文件看package.json
+
+
+## License
+MIT
