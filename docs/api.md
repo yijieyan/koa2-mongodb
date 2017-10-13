@@ -1,7 +1,7 @@
 [1.注册](#id1)
 [2.登陆](#id2)
-###<span id="id1">1.注册</span>
-####客户端
+### <span id="id1">1.注册</span>
+#### 客户端
 参数|value|类型|
 |----|----|---|
 |password|密码|String|
@@ -21,7 +21,7 @@ curl -X POST \
   -d 'password=123456&phone=15021578502&username=yijie.yan&email='
 ```
 
-####服务器
+#### 服务器
 ```
 {
     "code": 200,
@@ -29,8 +29,8 @@ curl -X POST \
     "message": "操作成功"
 }
 ```
-###<span id="id2">2.登陆</span>
-####客户端
+### <span id="id2">2.登陆</span>
+#### 客户端
 参数|value|类型|
 |----|----|---|
 |password|密码|String|
@@ -49,7 +49,7 @@ curl -X POST \
   -H 'postman-token: ddac2e08-955d-22ad-b3af-80f2874f3556' \
   -d 'phone=150215785021&password=123456'
 ```
-####服务器
+#### 服务器
 ```
 {
     "code": 200,
