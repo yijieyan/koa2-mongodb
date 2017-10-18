@@ -55,7 +55,7 @@ module.exports = async function(ctx, next){
         let cookie = security.cipher(`${new Date().getTime()}:${userId}`);
         return cookie;
     };
-
+    if(ctx.url == '/favicon.ico') return;
 
     if(ctx.path.startsWith('/public')) {
         console.log(ctx.path);
