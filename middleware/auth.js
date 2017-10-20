@@ -31,8 +31,8 @@ module.exports = async function(ctx, next){
         }
     };
 
-    ctx.reSetSession = async function(value) {
-        let [secret, userId] = security.decipher(cookie).split(":");
+    ctx.reSetSession = async function(value, token=ctx.req.headers.token) {
+        let [secret, userId] = security.decipher(token).split(":");
         let session = await redisService.get(`${userId}`);
         if (session.secret !== secret) throw new commonError.tokenValidationFailure();
         Object.assign(session, value);
@@ -61,7 +61,7 @@ module.exports = async function(ctx, next){
         console.log(ctx.path);
     }else {
         let token = ctx.req.headers.token;
-        let user= ctx.getSession(token);
+        let user= await ctx.getSession(token);
         if(!token) {
             throw new commonError.tokenValidationFailure();
         }
