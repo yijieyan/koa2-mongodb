@@ -4,10 +4,9 @@ const json = require('koa-json');
 const bodyparser = require('koa-bodyparser');
 const logger = require('koa-logger');
 const config = require('./config')[env];
-const db = require('./libs/db');
+require('./libs/db');
 const error = require('./middleware/error');
 const auth = require('./middleware/auth');
-
 
 const public1 = require('./routes/public');
 const users = require('./routes/users');
@@ -16,14 +15,12 @@ process.env.dataDir = __dirname;
 
 // middlewares
 app.use(bodyparser({
-  enableTypes:['json', 'form', 'text']
+  enableTypes: ['json', 'form', 'text']
 }));
 app.use(json());
 app.use(logger());
 app.use(error);
 app.use(require('koa-static')(__dirname + '/public'));
-
-
 
 // logger
 app.use(async (ctx, next) => {
@@ -37,7 +34,6 @@ app.use(auth);
 // routes
 app.use(public1.routes(), public1.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
-
 
 app.listen(`${config.port}`);
 console.log(`listen ${config.port} ...`);
