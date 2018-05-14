@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node start-cli.js"
+    "start": "node app.js",
+    "dev": "./node_modules/.bin/nodemon app.js",
+    "prd": "pm2 start app.js"
   },
   "dependencies": {
     "bunyan": "^1.8.12",
@@ -18,8 +20,19 @@
     "koa-router": "^7.1.1",
     "koa-static": "^3.0.0",
     "mkdirp": "^0.5.1",
+    "moment": "^2.22.1",
     "mongoose": "^5.0.9",
+    "mongoose-auto-increment": "^5.0.1",
     "redis": "^2.8.0",
     "xss": "^0.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "nodemon": "^1.17.4"
   }
 }
