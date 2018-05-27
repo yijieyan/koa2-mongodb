@@ -5,7 +5,7 @@ const json = require('koa-json')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const config = require('./config')
-require('./libs/db')
+require('./libs/db')()
 const error = require('./middleware/error')
 const auth = require('./middleware/auth')
 

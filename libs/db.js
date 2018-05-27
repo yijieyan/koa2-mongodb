@@ -26,4 +26,4 @@ function connect () {
   })
 }
 
-module.exports = db
+module.exports = connect
